@@ -27,7 +27,12 @@ of the challenges too simple to bother with. More tests to be added.
 
 These are my notes while studying through Kyle Simpson's
 *You Don't Know Js: This & Object Prototypes*. I had fun, not only following along,
-but embellishing his examples and playing with them on my own.
+but embellishing his examples and playing with them on my own, conforming them to
+the behavior-driven test style.
+
+I often used concepts from Learning *JavaScript Data Structures & Algorithms* by Loiane
+Groner from Packt Publishing to experiment with the concepts and see how I might use them
+in a valid JavaScript pattern.
 
 
 # Functional Reactive Programming
