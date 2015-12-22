@@ -1,4 +1,4 @@
-The purpose of this project was to seek out areas of JavaScript that I find confusing, hard, or just plain uncomfortable, and work with them until I get it good.
+The purpose of this project was to seek out areas of JavaScript that I find confusing, hard, or just plain uncomfortable, and work with them until I got it good.
 
 # Test-Driven Development
 

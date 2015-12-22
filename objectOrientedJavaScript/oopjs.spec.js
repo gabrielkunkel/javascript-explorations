@@ -1,5 +1,4 @@
 'use strict';
-// comes back as TypeError:
 
 describe("the use of 'this'", function () {
 
@@ -306,6 +305,10 @@ describe("the use of 'this'", function () {
      * Overall, this method of binding is precarious without some premeditation.
      */
 
+    /**
+     * The Big Example for Implicit Binding
+     */
+
     describe("a stack that operates using implicit binding", function () {
 
       // stack functions
@@ -315,6 +318,7 @@ describe("the use of 'this'", function () {
         var argts = [].slice.call(arguments);
 
         // forEach won't work because it will eradicate the binding! :P
+        // ...unless we added the obj as the second argument.
        /* argts.forEach(function (element) {
           this.items.push(element);
         });*/
@@ -444,13 +448,191 @@ describe("the use of 'this'", function () {
 
     }); // end describe `stack implementaton`
 
-    // The right way to do implicit binding, if you must do it: CREATE A "BIG" EXAMPLE
-
-
   }); // end describe `implicit binding`
 
 
+  describe("explicit binding", function () {
+
+    it("can 'explicitly' say what we're going to 'call' or 'apply' ", function() {
+      function runThis() {
+        return this.value;
+      }
+
+      var obj = {
+        value: 78
+      };
+      
+      expect(runThis.call(obj)).toBe(78);
+    }); // end it
+
+    it("can maintain binding, even when it's called by another function", function() {
+      function runThis() {
+        return this.value;
+      }
+
+      var obj = {
+        value: 98
+      };
+
+      var runThisToo = function () {
+        return runThis.call( obj ); // <- "Hard Binding"
+      };
+
+      expect(runThisToo()).toBe(98);
+    }); // end it
+
+    it("can maintain binding, even when the reference is passed into a function", function() {
+      function runThis() {
+        return this.value;
+      }
+
+      function orThis() {
+        return this.value + 1;
+      }
+
+      var obj = {
+        value: 9999
+      };
+
+      var runThisToo = function (fn) {
+        return fn.call( obj );
+      };
+
+      expect(runThisToo(runThis)).toBe(9999);
+      expect(runThisToo(orThis)).toBe(10000);
+    }); // end it
+
+    it("most typically wraps a function with a hard binding creating " +
+      "a pass-through of any arguments passed and any return value received", function() {
+
+      function runThis(input) {
+        return this.value + input;
+      }
+
+      var obj = {
+        value: 33
+      };
+      
+      var runThisToo = function () {
+        return runThis.apply(obj, arguments);
+      };
+
+      expect(runThisToo(3)).toBe(36);
+    }); // end it
+
+    it("can be done with a reusable helper: the 'bind' helper", function() {
+      /*
+      * "bind(..) returns a new function that is hardcoded to call the original
+      * function with the this context set as you specified."
+      * */
+
+      function runThis(input) {
+        return this.value + input;
+      }
+
+      // `bind` helper
+      function bind(fn, obj) {
+        return function () {
+          return fn.apply(obj, arguments); // mmmmm... curry :D
+        };
+      }
+
+      var obj = {
+        value: 35
+      };
+
+      // Now, the function will be always bound to the object in the returned var
+      var bound = bind(runThis, obj);
+
+      expect(bound(5)).toBe(40);
+    }); // end it
+    
+    it("can use forEach (or map) with a bound object", function() {
+
+      var obj = {
+        items: [1, 2, 3, 4]
+      };
+
+      var names = ['jennifer', 'rupert', 'bobby', 'richard'];
+
+      var smushed = names.map(function (element, index) {
+        return this.items[index] + '. ' + element + '!'
+      }, obj); // <-- hardcodes the obj.
+      
+      expect(smushed).toEqual([ '1. jennifer!', '2. rupert!', '3. bobby!', '4. richard!' ]);
+    }); // end it
 
 
 
-}); // end describe
+    describe("Tools of object-oriented JavaScript", function () {
+      
+      it("can detect if a property exists incorrectly (don't do this)", function() {
+        var checksToSeeIfItExists = false;
+
+        var obj = {
+          name: false
+        };
+
+        if (obj.name) {
+          checksToSeeIfItExists = true;
+        }
+
+        //expect(checksToSeeIfItExists).toBe(true); // FAIL!!
+        expect(checksToSeeIfItExists).toBe(false);
+      }); // end it
+
+      it("can detect if a property exists correctly (do this!)", function() {
+        var checksToSeeIfItExists = false;
+
+        var obj = {
+          name: false
+        };
+
+        if ("name" in obj) {
+          checksToSeeIfItExists = true;
+        }
+        expect(checksToSeeIfItExists).toBe(true); // SUCCESS!!
+      }); // end it
+
+      it("can detect all of the properties on the prototype chain", function() {
+        var checksToSeeIfItExists = false;
+
+        var obj = {
+          name: false
+        };
+
+        if ("toString" in obj) {
+          checksToSeeIfItExists = true;
+        }
+        expect(checksToSeeIfItExists).toBe(true); // SUCCESS!! Buuuuuut....
+      }); // end it
+
+      it("can detect all of the properties JUST on its own object thus:", function() {
+        var checksToSeeIfItExists = false;
+
+        var obj = {
+          name: false
+        };
+
+        if (obj.hasOwnProperty('toString')) {
+          checksToSeeIfItExists = true;
+        }
+        expect(checksToSeeIfItExists).toBe(false);
+
+        if (obj.hasOwnProperty('name')) {
+          checksToSeeIfItExists = true;
+        }
+        expect(checksToSeeIfItExists).toBe(true);
+      }); // end it
+
+
+    }); // end describe
+
+
+
+  }); // end describe `explicit binding`
+
+
+
+
+}); // end describe `the use of this`

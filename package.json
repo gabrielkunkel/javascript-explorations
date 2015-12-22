@@ -1,7 +1,7 @@
 {
   "name": "javascript-explorations",
   "version": "1.0.0",
-  "description": "The purpose of this project was to seek out areas of JavaScript that I find confusing, hard, or just plain uncomfortable, and work with them until I get it good.",
+  "description": "The purpose of this project was to seek out areas of JavaScript that I find confusing, hard, or just plain uncomfortable, and work with them until I got it good.",
   "main": "index.js",
   "scripts": {
     "test": "run test"
