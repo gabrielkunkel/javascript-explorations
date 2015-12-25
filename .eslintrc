@@ -27,8 +27,7 @@
   },
 
   "plugins": [
-    // "angular",
-    // "jasmine"
+    "jasmine"
   ],
 
   "rules": {
@@ -246,6 +245,7 @@
     "angular/typecheck-string": 2,    // use angular.isString instead of typeof comparisons
     "angular/watchers-execution": [0, "$digest"], // require and specify consistent use $scope.digest() or $scope.apply()
     "angular/window-service": 2,       //Instead of the default window object, you should prefer the AngularJS wrapper service $window.
+    */
 
     ////////// Jasmine ///////////
     "jasmine/no-focused-tests": 1,      //  can cause unexpected behaviour if accidentally committed to source control.
@@ -253,9 +253,8 @@
     "jasmine/no-spec-dupes": [2, "branch"],  // Multiple specs with same name is confusing and indicator of copy-paste error.
     "jasmine/no-suite-dupes": [2, "branch"], // Multiple suites with same name is confusing and indicator of copy-paste error.
     "jasmine/no-suite-callback-args": 2, // Enforce that a suites's callback does not contain any arguments
-    "jasmine/missing-expect": 2, // A test which doesn't make any expectations doesn't really test anything.
+    "jasmine/missing-expect": 0, // A test which doesn't make any expectations doesn't really test anything.
     "jasmine/valid-expect": 2 // Ensure expect() is called with a single argument and there is an actual expectation made.
-*/
 
   }
 }

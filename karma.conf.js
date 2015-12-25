@@ -17,7 +17,8 @@ module.exports = function(config) {
     files: [
       //'node_modules/sinon/pkg/sinon.js',
       //'freeCodeCampBonfires/**/*.js',
-      //'functionalReactiveProgramming/**/*.js'
+      'functionalReactiveProgramming/**/*.js',
+      'neatJavaScript/**/*.js',
       'objectOrientedJavaScript/**/*.js'
     ],
 

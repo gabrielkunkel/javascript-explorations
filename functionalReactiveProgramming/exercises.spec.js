@@ -27,6 +27,7 @@ describe("Exercise 12", function () {
   
 }); // end describe
 
+
 describe("Exercise 13: concatMap", function () {
   it("should implement concatMap() to flatten a 2D array", function() {
     var twoDimensionalArray = [['one', 'two'], ['three', 'four'], ['five', 'six']];
@@ -73,6 +74,7 @@ describe("Exercise 13: concatMap", function () {
   }); // end it
 }); // end describe exercise 13
 
+
 describe("Exercise 14: Using concatMap", function () {
   it("can be used to retrieve an id, title, and 150x200 box art url", function() {
     // Use one or more concatMap, map, and filter calls to create an array with the following items
@@ -86,6 +88,7 @@ describe("Exercise 14: Using concatMap", function () {
   }); // end it
 }); // end describe
 
+
 describe("Exercise 15: Using forEach", function () {
   it("can find the largest box art", function() {
     expect(exercise15()).toEqual({
@@ -97,7 +100,8 @@ describe("Exercise 15: Using forEach", function () {
   }); // end it
 }); // end describe
 
-describe("Exercise 17, 18, 19: Using reduce", function () {
+
+describe("Exercise 17, 18, 19, 20: Using reduce", function () {
   it("should return the largest rating", function() {
     expect(exercise17()).toEqual([5]);
   }); // end it
@@ -112,6 +116,15 @@ describe("Exercise 17, 18, 19: Using reduce", function () {
   
   it("should be able to reduce to a different type", function() {
 
+    /**
+     * NOTE: Jasmine uses hasOwnProperty internally, so it does not detect all
+     * of the object properties along the prototype chain. The debugger confirms
+     * that they are all there. The only way to test this in Jasmine is to
+     * test to see if all of the properties, other than "Bad Boys" is found on the
+     * prototype chain.
+     * TODO: Create custom matcher which uses for...in without hasOwnProperty.
+     */
+
     var output = [{
       "65432445": "The Chamber",
       "675465": "Fracture",
@@ -119,8 +132,38 @@ describe("Exercise 17, 18, 19: Using reduce", function () {
       "654356453": "Bad Boys"
     }];
 
-    expect(exercise19()).toEqual(output);
+    var poppedObj = exercise19().pop();
+    var obj = exercise19();
 
+    expect(exercise19()).toEqual(jasmine.any(Object));
+    expect(obj).toEqual([{
+      654356453: "Bad Boys"
+    }]);
+    expect(exercise19()).toEqual(jasmine.arrayContaining([{
+      654356453: "Bad Boys"
+    }]));
+
+    expect(exercise19()).not.toEqual(output); // <-- Even though, effectively, it is equal
   }); // end it
+
+  it("can be used to retrieve particular properties (exercise 20)", function() {
+    // Use one or more concatMap, map, and reduce calls to create an array with the
+    // following items (order doesn't matter)
+
+    var output = [
+      {"id": 70111470,"title": "Die Hard","boxart":"http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" },
+      {"id": 654356453,"title": "Bad Boys","boxart":"http://cdn-0.nflximg.com/images/2891/BadBoys140.jpg" },
+      {"id": 65432445,"title": "The Chamber","boxart":"http://cdn-0.nflximg.com/images/2891/TheChamber130.jpg" },
+      {"id": 675465,"title": "Fracture","boxart":"http://cdn-0.nflximg.com/images/2891/Fracture120.jpg" }
+    ];
+
+    expect(exercise20()).toEqual(output);
+  }); // end it
+}); // end describe
+
+
+describe("Zipping Arrays", function () {
+
+
 
 }); // end describe

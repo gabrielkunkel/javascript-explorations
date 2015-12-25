@@ -397,10 +397,10 @@ function exercise19() {
     }
   ];
 
-  return videos.reduce(function(accumulatedMap, video) {
+  return videos.reduce(function(acc, video) {
 
-      // Object.create() makes a fast copy of the accumulatedMap by
-      // creating a new object and setting the accumulatedMap to be the
+      // Object.create() makes a fast copy of the acc by
+      // creating a new object and setting the acc to be the
       // new object's prototype.
 
       // Initially the new object is empty and has no members of its own,
@@ -416,17 +416,115 @@ function exercise19() {
       // Object.create() is perfect for functional programming because it
       // makes creating a new object with a different member value almost
       // as cheap as changing the member on the original object!
-    var copyOfAccumulatedMap = Object.create(accumulatedMap);
+
+    var copyOfAcc = Object.create(acc);
+
+    copyOfAcc[video.id] = video.title;
 
       // ----- INSERT CODE TO ADD THE VIDEO TITLE TO THE ----
       // ----- NEW MAP USING THE VIDEO ID AS THE KEY	 ----
 
-    return copyOfAccumulatedMap.map(function (element) {
-      var objKey = element.id;
-      return { objKey: element.title };
-    });
+    return copyOfAcc;
   },
     // Use an empty map as the initial value instead of the first item in
     // the list.
     {});
+
 }
+
+
+/* Exercise 20: Retrieve the id, title, and smallest box art url for every video. */
+
+/**
+ * This is a variation of the problem we solved earlier, where we retrieved the
+ * url of the boxart with a width of 150px. This time we'll use reduce() instead
+ * of filter() to retrieve the smallest box art in the boxarts array.
+ */
+
+function exercise20() {
+  var movieLists = [
+    {
+      name: "New Releases",
+      videos: [
+        {
+          "id": 70111470,
+          "title": "Die Hard",
+          "boxarts": [
+            { width: 150, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" },
+            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard200.jpg" }
+          ],
+          "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+          "rating": 4.0,
+          "bookmark": []
+        },
+        {
+          "id": 654356453,
+          "title": "Bad Boys",
+          "boxarts": [
+            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys200.jpg" },
+            { width: 140, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys140.jpg" }
+
+          ],
+          "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+          "rating": 5.0,
+          "bookmark": [{ id:432534, time:65876586 }]
+        }
+      ]
+    },
+    {
+      name: "Thrillers",
+      videos: [
+        {
+          "id": 65432445,
+          "title": "The Chamber",
+          "boxarts": [
+            { width: 130, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber130.jpg" },
+            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber200.jpg" }
+          ],
+          "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+          "rating": 4.0,
+          "bookmark": []
+        },
+        {
+          "id": 675465,
+          "title": "Fracture",
+          "boxarts": [
+            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture200.jpg" },
+            { width: 120, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture120.jpg" },
+            { width: 300, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture300.jpg" }
+          ],
+          "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+          "rating": 5.0,
+          "bookmark": [{ id:432534, time:65876586 }]
+        }
+      ]
+    }
+  ];
+
+  return movieLists.concatMap(function(movieList) {
+    return movieList.videos.map(function (video) {
+      return {
+        "id": video.id,
+        "title": video.title,
+        "boxart": video.boxarts.reduce(function (acc, curr) {
+          var accSize = acc.width * acc.height;
+          var currSize = curr.width * curr.height;
+
+          if (accSize > currSize) {
+            return curr;
+          }
+          else if (accSize < currSize) {
+            return acc;
+          }
+        }).map(function (video) {
+          return video.url;
+        }).pop()
+      }; //end returned object
+
+    })
+  });
+} // end Exercise 20
+
+// END OF REDUCE
+
+

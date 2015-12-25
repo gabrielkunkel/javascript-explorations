@@ -563,76 +563,315 @@ describe("the use of 'this'", function () {
     }); // end it
 
 
-
-    describe("Tools of object-oriented JavaScript", function () {
-      
-      it("can detect if a property exists incorrectly (don't do this)", function() {
-        var checksToSeeIfItExists = false;
-
-        var obj = {
-          name: false
-        };
-
-        if (obj.name) {
-          checksToSeeIfItExists = true;
-        }
-
-        //expect(checksToSeeIfItExists).toBe(true); // FAIL!!
-        expect(checksToSeeIfItExists).toBe(false);
-      }); // end it
-
-      it("can detect if a property exists correctly (do this!)", function() {
-        var checksToSeeIfItExists = false;
-
-        var obj = {
-          name: false
-        };
-
-        if ("name" in obj) {
-          checksToSeeIfItExists = true;
-        }
-        expect(checksToSeeIfItExists).toBe(true); // SUCCESS!!
-      }); // end it
-
-      it("can detect all of the properties on the prototype chain", function() {
-        var checksToSeeIfItExists = false;
-
-        var obj = {
-          name: false
-        };
-
-        if ("toString" in obj) {
-          checksToSeeIfItExists = true;
-        }
-        expect(checksToSeeIfItExists).toBe(true); // SUCCESS!! Buuuuuut....
-      }); // end it
-
-      it("can detect all of the properties JUST on its own object thus:", function() {
-        var checksToSeeIfItExists = false;
-
-        var obj = {
-          name: false
-        };
-
-        if (obj.hasOwnProperty('toString')) {
-          checksToSeeIfItExists = true;
-        }
-        expect(checksToSeeIfItExists).toBe(false);
-
-        if (obj.hasOwnProperty('name')) {
-          checksToSeeIfItExists = true;
-        }
-        expect(checksToSeeIfItExists).toBe(true);
-      }); // end it
-
-
-    }); // end describe
-
-
-
   }); // end describe `explicit binding`
 
-
-
-
 }); // end describe `the use of this`
+
+
+
+describe("Tools of object-oriented JavaScript", function () {
+
+  it("can detect if a property exists incorrectly (don't do this)", function() {
+    var checksToSeeIfItExists = false;
+
+    var obj = {
+      name: false
+    };
+
+    if (obj.name) {
+      checksToSeeIfItExists = true;
+    }
+
+    //expect(checksToSeeIfItExists).toBe(true); // FAIL!!
+    expect(checksToSeeIfItExists).toBe(false);
+  }); // end it
+
+  it("can detect if a property exists correctly (do this!)", function() {
+    var checksToSeeIfItExists = false;
+
+    var obj = {
+      name: false
+    };
+
+    if ("name" in obj) {
+      checksToSeeIfItExists = true;
+    }
+    expect(checksToSeeIfItExists).toBe(true); // SUCCESS!!
+  }); // end it
+
+  it("can detect all of the properties on the prototype chain", function() {
+    var checksToSeeIfItExists = false;
+
+
+    var obj = {
+      name: false
+    };
+
+    if ("toString" in obj) {
+      checksToSeeIfItExists = true;
+    }
+    expect(checksToSeeIfItExists).toBe(true); // SUCCESS!! Buuuuuut....
+  }); // end it
+
+  it("can detect all of the properties JUST on its own object thus:", function() {
+    var checksToSeeIfItExists = false;
+
+    var obj = {
+      name: false
+    };
+
+    if (obj.hasOwnProperty('toString')) {
+      checksToSeeIfItExists = true;
+    }
+    expect(checksToSeeIfItExists).toBe(false);
+
+    if (obj.hasOwnProperty('name')) {
+      checksToSeeIfItExists = true;
+    }
+    expect(checksToSeeIfItExists).toBe(true);
+  }); // end it
+
+
+  it("can remove a property with delete but not with variables", function() {
+
+    var aValue = 42;
+
+    var obj = {
+      number: 43
+    };
+
+    delete obj.number;
+
+    expect(obj.number).toBe(undefined);
+
+    // expect(function() { delete aValue}).toThrow(); //<- simply won't in strict mode.
+  }); // end it
+
+  // TODO: instanceof (preferred)
+  // TODO: .constructor (not preferred, because it can be overwritten; test that)
+
+
+}); // end describe `tools of object-oriented javascript`
+
+
+describe("Object.create", function () {
+
+  /**
+   * A basic thought here, is that creating objects with Object.create is easy.
+   * What can make it tricky is when you want to initialize and/or provide default
+   * properties. You can not use the typical 'Constructor(name, age, traits)' pattern
+   * without some additional work. You can just *make sure to add these*, but a
+   * second way is to create an init function on the prototype object. Mixing a
+   * constructor with the Object.create will ultimately be the most thorough approach.
+   * Object.create seems to shine in situations where there's little inheritance work?
+   * ...at least in comparison to other approaches.
+   */
+
+  it("creates an object from a prototypal object", function() {
+
+    var robert = {
+      name: 'Robert',
+      giveName: function () {
+        return this.name;
+      }
+    };
+
+    var maria = Object.create(robert, {
+      name: { value: 'Maria'}
+    });
+
+    expect(maria.giveName()).toEqual('Maria');
+  }); // end it
+
+
+  it("works with methods established on prototype object" +
+    " AND you can add properties in two different ways", function() {
+
+    var person = {
+      giveName: function () {
+        return this.name;
+      },
+      isAwesome: function () {
+        return this.name + ' is so awesome!';
+      }
+    };
+
+    var maria = Object.create(person, {
+      name: { value: 'Maria'}
+    });
+
+    maria.age = 13;
+
+    var bobby = Object.create(person, {
+      name: { value: 'Bobby'}
+    });
+
+    bobby.age = 15;
+
+    expect(maria.giveName()).toEqual('Maria');
+    expect(bobby.giveName()).toEqual('Bobby');
+    expect(maria.isAwesome()).toEqual('Maria is so awesome!');
+    expect(bobby.isAwesome()).toEqual('Bobby is so awesome!');
+    expect(maria.age).toBe(13);
+    expect(bobby.age).toBe(15);
+  }); // end it
+
+
+  it("cannot work with object properties added on the prototype", function() {
+
+    var girl = {
+      name: '',
+      age: '',
+      traits: {} //<-- This is the problem.
+    };
+
+    var sam = Object.create(girl);
+
+    sam.name = 'sam';
+    sam.age = 14;
+    sam.traits.hair = 'blonde'; //<-- This is the problem.
+
+    var rachel = Object.create(girl);
+
+    rachel.name = 'rachel';
+    rachel.age = 15;
+    rachel.traits.hair = 'brunnet'; //<-- This is the problem.
+
+    expect(sam.name).toEqual('sam');
+    expect(sam.age).toBe(14);
+    expect(sam.traits.hair).not.toEqual('blonde'); //<-- This is the problem.
+    // We want this to be equal to 'blonde', so we have to do something different
+  }); // end it
+
+
+  it("can't work with object properties not on the prototype either" +
+    " and NOT locally initialized", function() {
+    var girl = {
+      name: '',
+      age: ''
+     // traits is gone
+    };
+
+    var sam = Object.create(girl);
+
+    sam.name = 'sam';
+    sam.age = 14;
+    //sam.traits.hair = 'blonde'; //typeError won't even run
+
+    var rachel = Object.create(girl);
+
+    rachel.name = 'rachel';
+    rachel.age = 15;
+    // rachel.traits.hair = 'brunette'; //typeError won't even run
+
+    expect(sam.name).toEqual('sam');
+    expect(rachel.name).toEqual('rachel');
+    expect(function() { return sam.traits.hair}).toThrow();
+  }); // end it
+
+
+  it("works when we first add a local object to put traits on", function() {
+    var girl = {
+      getName: function () {
+        return this.name;
+      },
+      isAwesome: function () {
+        return this.name + ' is awesome!';
+      },
+      hasPrettyHair: function () {
+        return this.name + ' has pretty ' + this.traits.hair + ' hair.';
+      }
+    };
+
+    var sam = Object.create(girl);
+
+    sam.name = 'sam';
+    sam.age = 14;
+    sam.traits = {}; // <-- Must initialize/declare object ahead of time.
+    sam.traits.hair = 'blonde';
+
+    var rachel = Object.create(girl);
+
+    rachel.name = 'rachel';
+    rachel.age = 15;
+    rachel.traits = {}; // <-- Must initialize/declare object ahead of time.
+    rachel.traits.hair = 'brunette';
+
+    expect(sam.name).toEqual('sam');
+    expect(rachel.name).toEqual('rachel');
+    expect(function() { return sam.traits.hair}).not.toThrow();
+    expect(sam.traits.hair).toEqual('blonde');
+    expect(rachel.traits.hair).toEqual('brunette');
+    
+    expect(sam.hasPrettyHair()).toEqual('sam has pretty blonde hair.');
+    expect(rachel.hasPrettyHair()).toEqual('rachel has pretty brunette hair.');
+  }); // end it
+
+
+  it(", ALSO, can work with the proper init function", function() {
+    var girl = {
+      init: function (name, age) {
+        this.name = name;
+        this.age = age;
+        this.traits = {};
+
+        return this;
+      },
+
+      getName: function () {
+        return this.name;
+      },
+      isAwesome: function () {
+        return this.name + ' is awesome!';
+      },
+      hasPrettyHair: function () {
+        return this.name + ' has pretty ' + this.traits.hair + ' hair.';
+      }
+    };
+
+    var sam = Object.create(girl).init('sam', 14);
+
+    sam.traits.hair = 'blonde';
+
+    var rachel = Object.create(girl).init('rachel', 15);
+
+    rachel.traits.hair = 'brunette';
+
+    expect(sam.name).toEqual('sam');
+    expect(rachel.name).toEqual('rachel');
+    expect(sam.age).toBe(14);
+    expect(rachel.age).toBe(15);
+    expect(function() { return sam.traits.hair }).not.toThrow();
+    expect(sam.traits.hair).toEqual('blonde');
+    expect(rachel.traits.hair).toEqual('brunette');
+
+    expect(sam.hasPrettyHair()).toEqual('sam has pretty blonde hair.');
+    expect(rachel.hasPrettyHair()).toEqual('rachel has pretty brunette hair.');
+  }); // end it
+
+
+  it("can be used to create methods that can be accessed through" +
+    " the chain of multiple Object.create's", function() {
+
+    var person = {
+      getName: function () {
+        return this.name;
+      }
+    };
+
+    var robot = Object.create(person, {
+      getManufacturer: {value: function () {
+        return this.manufacturer;
+      }}
+    });
+
+    var robby = Object.create(robot);
+
+    robby.name = 'Robby';
+    robby.manufacturer = 'Intel';
+
+    expect( function() {robby.getName()}).not.toThrow();
+    expect(robby.getName()).toEqual('Robby');
+    expect(robby.getManufacturer()).toEqual('Intel');
+  }); // end it
+}); // end describe
