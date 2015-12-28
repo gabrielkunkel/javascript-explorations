@@ -527,4 +527,308 @@ function exercise20() {
 
 // END OF REDUCE
 
+/* Exercise 21: Combine videos and bookmarks by index  */
+
+/**
+ * The first time I did this problem, I misread it/misunderstood what I was
+ * supposed to achieve. What they were asking was simpler. I have labeled that
+ * "Exercise 21A." It follows this solution, which *looks more like the teeth
+ * of a zipper coming together.*
+ * @returns {Array}
+ */
+
+function exercise21() {
+  var videos = [
+    {
+      "id": 70111470,
+      "title": "Die Hard",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/DieHard.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 4.0
+    },
+    {
+      "id": 654356453,
+      "title": "Bad Boys",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 5.0
+    },
+    {
+      "id": 65432445,
+      "title": "The Chamber",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 4.0
+    },
+    {
+      "id": 675465,
+      "title": "Fracture",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/Fracture.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 5.0
+    }
+    ],
+    bookmarks = [
+      {id: 470, time: 23432},
+      {id: 453, time: 234324},
+      {id: 445, time: 987834}
+    ],
+    counter,
+    videoIdAndBookmarkIdPairs = [];
+
+  for(counter = 0; counter < Math.min(videos.length, bookmarks.length); counter += 1) {
+
+    videoIdAndBookmarkIdPairs.push(videos[counter]);
+    videoIdAndBookmarkIdPairs.push(bookmarks[counter]);
+
+    if (videos.length - 1 === bookmarks.length && counter === Math.min(videos.length, bookmarks.length) - 1) {
+      videoIdAndBookmarkIdPairs.push(videos[counter+1]);
+    }
+
+    // Insert code here to create a {videoId, bookmarkId} pair and add it to the
+    // videoIdAndBookmarkIdPairs array.
+  }
+
+  return videoIdAndBookmarkIdPairs;
+}
+
+/**
+ * Use a for loop to traverse the videos and bookmarks array at the
+ * same time. For each video and bookmark pair, create a {videoId,
+ * bookmarkId} pair and add it to the videoIdAndBookmarkIdPairs array.
+ * @returns {Array}
+ */
+
+function exercise21a() {
+  var videos = [
+    {
+      "id": 70111470,
+      "title": "Die Hard",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/DieHard.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 4.0
+    },
+    {
+      "id": 654356453,
+      "title": "Bad Boys",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 5.0
+    },
+    {
+      "id": 65432445,
+      "title": "The Chamber",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 4.0
+    },
+    {
+      "id": 675465,
+      "title": "Fracture",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/Fracture.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 5.0
+    }
+    ],
+    bookmarks = [
+      {id: 470, time: 23432},
+      {id: 453, time: 234324},
+      {id: 445, time: 987834}
+    ],
+    counter,
+    videoIdAndBookmarkIdPairs = [];
+
+  for(counter = 0; counter < Math.min(videos.length, bookmarks.length); counter += 1) {
+    videoIdAndBookmarkIdPairs.push( { "videoId": videos[counter].id, "bookmarkId": bookmarks[counter].id});
+
+    // Insert code here to create a {videoId, bookmarkId} pair and add it to the
+    // videoIdAndBookmarkIdPairs array.
+  }
+
+  return videoIdAndBookmarkIdPairs;
+}
+
+/* Exercise 22: Implement zip */
+
+// JSON.stringify(Array.zip([1,2,3],[4,5,6], function(left, right) { return left + right })) === '[5,7,9]'
+
+Array.zip = function(left, right, combinerFunction) {
+  var counter,
+    results = [];
+
+  for(counter = 0; counter < Math.min(left.length, right.length); counter += 1) {
+
+    results.push(combinerFunction(left[counter], right[counter]));
+    // Add code here to apply the combinerFunction to the left and right-hand items in the respective arrays
+  }
+
+  return results;
+};
+
+/* Exercise 23: Combine videos and bookmarks by index */
+
+/**
+ * Let's repeat exercise 21, but this time lets use your new zip() function.
+ * For each video and bookmark pair, create a {videoId, bookmarkId} pair.
+ */
+
+function exercise23() {
+  var videos = [
+    {
+      "id": 70111470,
+      "title": "Die Hard",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/DieHard.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 4.0
+    },
+    {
+      "id": 654356453,
+      "title": "Bad Boys",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 5.0
+    },
+    {
+      "id": 65432445,
+      "title": "The Chamber",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 4.0
+    },
+    {
+      "id": 675465,
+      "title": "Fracture",
+      "boxart": "http://cdn-0.nflximg.com/images/2891/Fracture.jpg",
+      "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+      "rating": 5.0
+    }
+    ],
+    bookmarks = [
+      {id: 470, time: 23432},
+      {id: 453, time: 234324},
+      {id: 445, time: 987834}
+    ];
+
+  return Array.zip(videos, bookmarks, function (left, right) {
+    return { "videoId": left.id, "bookmarkId": right.id }
+  }); //... finish this expression
+}
+
+/* Exercise 24: Retrieve each video's id, title, middle interesting
+moment time, and smallest box art url. */
+
+/**
+ * This is a variation of the problem we solved earlier. This time each
+ * video has an interesting moments collection, each representing a time
+ * during which a screenshot is interesting or representative of the title
+ * as a whole. Notice that both the boxarts and interestingMoments arrays
+ * are located at the same depth in the tree. Retrieve the time of the middle
+ * interesting moment and the smallest box art url simultaneously with zip().
+ * Return an {id, title, time, url} object for each video.
+ */
+
+function exercise24() {
+  var movieLists = [
+    {
+      name: "New Releases",
+      videos: [
+        {
+          "id": 70111470,
+          "title": "Die Hard",
+          "boxarts": [
+            { width: 150, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" },
+            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard200.jpg" }
+          ],
+          "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+          "rating": 4.0,
+          "interestingMoments": [
+            { type: "End", time:213432 },
+            { type: "Start", time: 64534 },
+            { type: "Middle", time: 323133}
+          ]
+        },
+        {
+          "id": 654356453,
+          "title": "Bad Boys",
+          "boxarts": [
+            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys200.jpg" },
+            { width: 140, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys140.jpg" }
+
+          ],
+          "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+          "rating": 5.0,
+          "interestingMoments": [
+            { type: "End", time:54654754 },
+            { type: "Start", time: 43524243 },
+            { type: "Middle", time: 6575665}
+          ]
+        }
+      ]
+    },
+    {
+      name: "Instant Queue",
+      videos: [
+        {
+          "id": 65432445,
+          "title": "The Chamber",
+          "boxarts": [
+            { width: 130, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber130.jpg" },
+            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber200.jpg" }
+          ],
+          "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+          "rating": 4.0,
+          "interestingMoments": [
+            { type: "End", time:132423 },
+            { type: "Start", time: 54637425 },
+            { type: "Middle", time: 3452343}
+          ]
+        },
+        {
+          "id": 675465,
+          "title": "Fracture",
+          "boxarts": [
+            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture200.jpg" },
+            { width: 120, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture120.jpg" },
+            { width: 300, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture300.jpg" }
+          ],
+          "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+          "rating": 5.0,
+          "interestingMoments": [
+            { type: "End", time:45632456 },
+            { type: "Start", time: 234534 },
+            { type: "Middle", time: 3453434}
+          ]
+        }
+      ]
+    }
+  ];
+
+  //------------ COMPLETE THIS EXPRESSION --------------
+  return movieLists.concatMap(function(movieList) {
+    return  movieList.videos.map(function (video) {
+      var interestingMomentsFiltered = video.interestingMoments.filter(function (element) {
+        return element.type === 'Middle';
+      });
+
+      var boxartReduced = video.boxarts.reduce(function (acc, curr) {
+        return acc.height * acc.width > curr.height * curr.width ? curr :
+          acc.height * acc.width < curr.height * curr.width ? acc :
+            acc;
+      });
+
+      return Array.zip(boxartReduced, interestingMomentsFiltered, function (left, right) {
+        return {
+          "id": video.id,
+          "title": video.title,
+          "time":  right.time,
+          "url": left.url
+        };
+      }).pop();
+    });
+  });
+
+} // end of exercise 24
+
+// END OF ZIP
+
 

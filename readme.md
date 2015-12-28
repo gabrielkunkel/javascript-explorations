@@ -39,7 +39,9 @@ in a valid JavaScript pattern.
 
 This is my work through http://reactivex.io/learnrx/. I deliberately avoided showing 
 any of the answers before I could solve them independently. Tests gave me feedback
-all along the way.
+all along the way. If there was an exercise that I didn't understand, and consequently
+solved the wrong problem, I mentioned it in the code and always tested my understanding
+by re-solving the problem from a reset state. 
 
 Not all of the exercises were true exercises. Some were pre-solved and the exercise was
 just an example, but I often created a test for these and annotated them.

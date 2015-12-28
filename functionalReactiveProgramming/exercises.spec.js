@@ -164,6 +164,101 @@ describe("Exercise 17, 18, 19, 20: Using reduce", function () {
 
 describe("Zipping Arrays", function () {
 
+  /**
+   * Array.zip is particularly good at retrieving values from two separate arrays
+   * located at the same level of an object.
+   */
 
+  it("can 'zipper' arrays with a for-loop", function() {
+    /* FAIL! This does not demonsrate an Array.zip */
+
+    var output = [
+      {
+        "id": 70111470,
+        "title": "Die Hard",
+        "boxart": "http://cdn-0.nflximg.com/images/2891/DieHard.jpg",
+        "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+        "rating": 4.0
+      },
+      {id: 470, time: 23432},
+      {
+        "id": 654356453,
+        "title": "Bad Boys",
+        "boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys.jpg",
+        "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+        "rating": 5.0
+      },
+      {id: 453, time: 234324},
+      {
+        "id": 65432445,
+        "title": "The Chamber",
+        "boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber.jpg",
+        "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+        "rating": 4.0
+      },
+      {id: 445, time: 987834},
+      {
+        "id": 675465,
+        "title": "Fracture",
+        "boxart": "http://cdn-0.nflximg.com/images/2891/Fracture.jpg",
+        "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+        "rating": 5.0
+      }
+    ];
+
+    expect(exercise21()).toEqual(output);
+  }); // end it
+
+  it("can creat a {videoId, bookmarkId} pair and it to an array with for-loop", function() {
+    var output = [
+      {"videoId": 70111470, "bookmarkId": 470},
+      {"videoId": 654356453, "bookmarkId": 453},
+      {"videoId": 65432445, "bookmarkId": 445}
+    ];
+    
+    expect(exercise21a()).toEqual(output);
+  }); // end it
+
+  it("can be implemented through Array.zip", function() {
+    var output = Array.zip([1,2,3], [4,5,6], function (left, right) {
+      return left + right;
+    });
+    
+    expect(output).toEqual([5,7,9]);
+  }); // end it
+
+  it("can creat a {videoId, bookmarkId} pair and it to an array with Array.zip", function() {
+    var output = [
+      {"videoId": 70111470, "bookmarkId": 470},
+      {"videoId": 654356453, "bookmarkId": 453},
+      {"videoId": 65432445, "bookmarkId": 445}
+    ];
+
+    expect(exercise23()).toEqual(output);
+  }); // end it
+
+  it("can be useful in combining values from complex objects in arrays", function() {
+    /**
+     * retrieve {id, title, time, url}
+     * where time is the middle one & url is from the smallest box art
+     */
+
+    var output = [
+      { "id": 70111470, "title": "Die Hard", "time": 323133,
+        "url": "http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" },
+      { "id": 654356453, "title": "Bad Boys", "time": 6575665,
+        "url": "http://cdn-0.nflximg.com/images/2891/BadBoys140.jpg" },
+      { "id": 65432445, "title": "The Chamber", "time": 3452343,
+        "url": "http://cdn-0.nflximg.com/images/2891/TheChamber130.jpg" },
+      { "id": 675465, "title": "Fracture", "time": 3453434,
+        "url": "http://cdn-0.nflximg.com/images/2891/Fracture120.jpg" }
+    ];
+
+    expect(exercise24()).toEqual(output);
+    //expect(exercise24()[0]).toEqual({ "id": 70111470, "title": "Die Hard", "time": 323133,
+      //"url": "http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" });
+
+
+  }); // end it
 
 }); // end describe
