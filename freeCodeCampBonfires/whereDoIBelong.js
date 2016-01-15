@@ -20,4 +20,3 @@ var pudding = where([40, 60], 50); // should return 1
 
 console.log(pudding);
 
-phantom.exit();

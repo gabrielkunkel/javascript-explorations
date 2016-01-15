@@ -66,7 +66,7 @@ var answer = telephoneCheck("1 555-555-555");
 
 console.log(answer);
 
-phantom.exit();
+
 
 
 // Regex that covers everything: /(^1(\s|-)|^)(\(|^|)\d{3}(\s|-|\)\s|\)-|\)|)\d{3}(\s|-|)\d{4}$/;

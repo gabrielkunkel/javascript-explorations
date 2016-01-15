@@ -40,4 +40,3 @@ var bunt = convert(29); //XXXVI
 
 console.log(bunt);
 
-phantom.exit();

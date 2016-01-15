@@ -17,4 +17,3 @@ var outs = repeat('*', 3);
 
 console.log(outs);
 
-phantom.exit();

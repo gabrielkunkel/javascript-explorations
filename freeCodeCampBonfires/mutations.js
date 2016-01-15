@@ -20,4 +20,3 @@ var mute = mutation(['zyxwvutsrqponmlkjihgfedcba', 'qrstu']);
 
 console.log(mute);
 
-phantom.exit();

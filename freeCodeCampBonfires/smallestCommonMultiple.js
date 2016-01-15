@@ -51,7 +51,7 @@ var dido = smallestCommons([1, 13]);
 
 console.log(dido);
 
-phantom.exit();
+
 
 
 // fill in the numbers in range

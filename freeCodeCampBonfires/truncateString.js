@@ -15,5 +15,5 @@ function truncate(str, num) {
 var boz = truncate('A-tisket a-tasket A green and yellow basket', 11);
 
 console.log(boz);
-phantom.exit();
+
 

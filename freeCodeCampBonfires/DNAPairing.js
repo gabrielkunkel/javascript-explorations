@@ -34,9 +34,3 @@ function pair(str) {
     return finalArray;
 }
 
-var paired = pair("ATCGA");
-// should return [['A','T'],['T','A'],['C','G'],['G','C'],['A','T']]
-
-console.log(paired);
-
-phantom.exit();

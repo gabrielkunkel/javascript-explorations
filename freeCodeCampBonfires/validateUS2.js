@@ -22,7 +22,7 @@ function telephoneCheck(str) {
 var answer = telephoneCheck("555-555-5555");
 
 
-phantom.exit();
+
 
 
 

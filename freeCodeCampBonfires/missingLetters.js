@@ -40,4 +40,3 @@ var feared = fearNotLetter('yz');
 
 console.log(feared);
 
-phantom.exit();

@@ -92,4 +92,3 @@ function palindrome(str) {
 answer = palindrome("A man, a plan, a canal. Panama");
 console.log(answer);
 
-phantom.exit();

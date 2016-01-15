@@ -19,7 +19,7 @@ var flattened = steamroller([[['a']], [['b']]]); // 'a', 'b'
 
 console.log(flattened);
 
-phantom.exit();
+
 
 
 /*

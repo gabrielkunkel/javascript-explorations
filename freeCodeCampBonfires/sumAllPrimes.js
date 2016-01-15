@@ -46,4 +46,3 @@ var runnedFunction = sumPrimes(977); // 72179 wtf??
 
 console.log(runnedFunction);
 
-phantom.exit();

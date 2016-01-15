@@ -16,4 +16,3 @@ function slasher(arr, howMany) {
 var slashed = slasher([1, 2, 3], 0);
 console.log(slashed);
 
-phantom.exit();

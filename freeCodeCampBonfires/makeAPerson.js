@@ -64,4 +64,3 @@ var whada = Object.keys(bob);
 
 console.log(whada);
 
-phantom.exit();

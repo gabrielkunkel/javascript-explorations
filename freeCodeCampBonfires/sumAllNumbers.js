@@ -25,7 +25,7 @@ var sumped = sumAll([4, 1]);
 
 console.log(sumped);
 
-phantom.exit();
+
 
 
 /*

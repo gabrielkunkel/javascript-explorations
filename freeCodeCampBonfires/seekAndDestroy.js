@@ -26,4 +26,3 @@ var lovelovelove = destroyer([1, 2, 3, 1, 2, 3], 2, 3); // should return 1, 1
 
 console.log(lovelovelove);
 
-phantom.exit();

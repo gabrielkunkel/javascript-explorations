@@ -60,4 +60,3 @@ bob.setLastName('Benji');
  console.log(bob.getFullName());
 
 
-phantom.exit();

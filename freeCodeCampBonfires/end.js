@@ -35,4 +35,3 @@ function end(str, target) {
 var butter = end('Bastian', 'n');
 
 console.log(butter);
-phantom.exit();

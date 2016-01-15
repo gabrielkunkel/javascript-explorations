@@ -45,4 +45,3 @@ var solution = replace("He is Sleeping on the couch", "Sleeping", "sitting");
 
 console.log(solution);
 
-phantom.exit();

@@ -51,4 +51,3 @@ var thump = translate("glove");
 
 console.log(thump);
 
-phantom.exit();

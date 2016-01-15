@@ -21,4 +21,3 @@ var spinaled = spinalCase('The_Andy GriffithShow');
 
 console.log(spinaled);
 
-phantom.exit();

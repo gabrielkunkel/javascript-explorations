@@ -827,8 +827,187 @@ function exercise24() {
     });
   });
 
+
+  /**
+   * THEIR SOLUTION
+   * --------------
+   * Our solutions are basically the same, except they used concatMap where I used
+   * map() and then pop() to eliminate the arrays around the objects. Their way is
+   * better. My style was better when I abstracted the functions to
+   * 'interestingMomentsFiltered' and 'boxartReduced.' ...I think.
+   *
+   *
+   * 	return movieLists.concatMap(function(movieList) {
+   * 	  return movieList.videos.concatMap(function(video) {
+   * 	    return Array.zip(video.boxarts.reduce(function(acc,curr) {
+   * 	    if (acc.width * acc.height < curr.width * curr.height) {
+   * 	      return acc;
+   * 	    }
+   * 	    else {
+   * 	      return curr;
+   * 	      }
+   * 	   }),
+   * 	   video.interestingMoments.filter(function(interestingMoment) {
+   * 	   return interestingMoment.type === "Middle";
+   * 	   }),
+   * 	   function(boxart, interestingMoment) {
+   * 	   return {id: video.id, title: video.title, time: interestingMoment.time, url: boxart.url};
+   * 	   });
+   * 	   });
+   * 	   });
+   */
+
 } // end of exercise 24
 
 // END OF ZIP
 
 
+/* Exercise 25: Converting from Arrays to Trees */
+
+/**
+ * We have 2 arrays each containing lists, and videos respectively. Each video
+ * has a listId field indicating its parent list. We want to build an array of
+ * list objects, each with a name and a videos array.
+ *
+ * @returns {*}
+ */
+
+function exercise25() {
+  var lists = [
+    {
+      "id": 5434364, // drop
+      "name": "New Releases"
+    },
+    {
+      "id": 65456475, // drop
+      "name": "Thrillers"
+    }
+    ],
+    videos = [
+      {
+        "listId": 5434364, // drop, but use to add to the correct object
+        "id": 65432445,
+        "title": "The Chamber"
+      },
+      {
+        "listId": 5434364, // drop, but use to add to the correct object
+        "id": 675465,
+        "title": "Fracture"
+      },
+      {
+        "listId": 65456475, // drop, but use to add to the correct object
+        "id": 70111470,
+        "title": "Die Hard"
+      },
+      {
+        "listId": 65456475, // drop, but use to add to the correct object
+        "id": 654356453,
+        "title": "Bad Boys"
+      }
+    ];
+
+  return lists.map(function (list) {
+    return {
+      "name": list.name,
+      "videos": videos.filter(function (video) {
+        return video.listId === list.id;
+      }).map(function (video) {
+        return {
+          "id": video.id,
+          "title": video.title
+        }
+      })
+    }
+  });
+  // complete this expression
+}
+
+/* Exercise 26: Converting from Arrays to Deeper Trees */
+
+/*
+Let's try creating a deeper tree structure. This time we have 4 separate
+arrays each containing lists, videos, boxarts, and bookmarks respectively.
+Each object has a parent id, indicating its parent. We want to build an array
+of list objects, each with a name and a videos array. The videos array will
+contain the video's id, title, bookmark time, and smallest boxart url. In
+other words we want to build the following structure:
+*/
+
+function exercise26() {
+  var lists = [
+    {
+      "id": 5434364,
+      "name": "New Releases"
+    },
+    {
+      "id": 65456475,
+      name: "Thrillers"
+    }
+    ],
+    videos = [
+      {
+        "listId": 5434364,
+        "id": 65432445,
+        "title": "The Chamber"
+      },
+      {
+        "listId": 5434364,
+        "id": 675465,
+        "title": "Fracture"
+      },
+      {
+        "listId": 65456475,
+        "id": 70111470,
+        "title": "Die Hard"
+      },
+      {
+        "listId": 65456475,
+        "id": 654356453,
+        "title": "Bad Boys"
+      }
+    ],
+    boxarts = [
+      { videoId: 65432445, width: 130, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber130.jpg" },
+      { videoId: 65432445, width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber200.jpg" },
+      { videoId: 675465, width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture200.jpg" },
+      { videoId: 675465, width: 120, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture120.jpg" },
+      { videoId: 675465, width: 300, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture300.jpg" },
+      { videoId: 70111470, width: 150, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" },
+      { videoId: 70111470, width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard200.jpg" },
+      { videoId: 654356453, width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys200.jpg" },
+      { videoId: 654356453, width: 140, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys140.jpg" }
+    ],
+    bookmarks = [
+      { videoId: 65432445, time: 32432 },
+      { videoId: 675465, time: 3534543 },
+      { videoId: 70111470, time: 645243 },
+      { videoId: 654356453, time: 984934 }
+    ];
+
+  return lists.map(function (list) {
+    return {
+      "name": list.name,
+      "videos": videos.filter(function (video) {
+        return list.id === video.listId;
+      }).map(function (video) {
+        return {
+          "id": video.id,
+          "title": video.title,
+          "time": bookmarks.filter(function (bookmark) {
+            return video.id === bookmark.videoId;
+          }).map(function (bookmark) {
+            return bookmark.time;
+          }).pop(),
+          "boxart": boxarts.filter(function (boxart) {
+            return boxart.videoId === video.id;
+          }).reduce(function (acc, curr) {
+            return acc.width * acc.height < curr.width * curr.height ? acc : curr;
+          }).map(function (boxart) {
+            return boxart.url;
+          }).pop()
+        }
+      })
+    }; // end of mapped lists object
+
+  }); // complete this expression
+}

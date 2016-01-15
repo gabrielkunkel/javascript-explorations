@@ -257,8 +257,88 @@ describe("Zipping Arrays", function () {
     expect(exercise24()).toEqual(output);
     //expect(exercise24()[0]).toEqual({ "id": 70111470, "title": "Die Hard", "time": 323133,
       //"url": "http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" });
+  }); // end it
 
+}); // end describe `zipping arrays`
+
+
+describe("Powerful Queries", function () {
+
+  it("can convert from arrays to trees", function() {
+    var output = [
+      {
+        "name": "New Releases",
+        "videos": [
+          {
+            "id": 65432445,
+            "title": "The Chamber"
+          },
+          {
+            "id": 675465,
+            "title": "Fracture"
+          }
+        ] // end of `videos`
+      },
+      {
+        "name": "Thrillers",
+        "videos": [
+          {
+            "id": 70111470,
+            "title": "Die Hard"
+          },
+          {
+            "id": 654356453,
+            "title": "Bad Boys"
+          }
+        ]
+      }
+    ];
+
+    expect(exercise25()).toEqual(output);
 
   }); // end it
+
+  it("can convert from arrays to *deeper* trees", function() {
+    var output = [
+      {
+        "name": "New Releases",
+        "videos": [
+          {
+            "id": 65432445,
+            "title": "The Chamber",
+            "time": 32432,
+            "boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber130.jpg"
+          },
+          {
+            "id": 675465,
+            "title": "Fracture",
+            "time": 3534543,
+            "boxart": "http://cdn-0.nflximg.com/images/2891/Fracture120.jpg"
+          }
+        ]
+      },
+      {
+        "name": "Thrillers",
+        "videos": [
+          {
+            "id": 70111470,
+            "title": "Die Hard",
+            "time": 645243,
+            "boxart": "http://cdn-0.nflximg.com/images/2891/DieHard150.jpg"
+          },
+          {
+            "id": 654356453,
+            "title": "Bad Boys",
+            "time": 984934,
+            "boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys140.jpg"
+          }
+        ]
+      }
+    ];
+
+    expect(exercise26()).toEqual(output);
+
+  }); // end it
+
 
 }); // end describe

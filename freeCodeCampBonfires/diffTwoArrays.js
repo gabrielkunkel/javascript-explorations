@@ -60,7 +60,7 @@ var diffed = diff(['andesite', 'grass', 'dirt', 'pink wool', 'dead shrub'], ['di
 
 console.log(diffed);
 
-phantom.exit();
+
 
 
 /*
@@ -101,6 +101,6 @@ var diffem = diff(['andesite', 'grass', 'dirt', 'pink wool', 'dead shrub'], ['di
 
 console.log(diffem);
 
-phantom.exit();
+
 
 */

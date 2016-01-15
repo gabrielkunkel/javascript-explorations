@@ -19,4 +19,3 @@ var bounce = bouncer([7, 'ate', '', false, 9]);
 
 console.log(bounce);
 
-phantom.exit();

@@ -28,4 +28,3 @@ var summedpup = sumFibs(1000);
 
 console.log(summedpup);
 
-phantom.exit();
