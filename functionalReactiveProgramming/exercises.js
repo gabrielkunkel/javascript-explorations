@@ -1011,3 +1011,7 @@ function exercise26() {
 
   }); // complete this expression
 }
+
+/* The tutorial goes from here to talk about Observables...
+no *real* exercises */
+

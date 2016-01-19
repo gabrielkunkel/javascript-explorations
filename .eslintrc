@@ -56,7 +56,7 @@
     "no-sparse-arrays": 2,        //sparse arrays, PREVENT: "[,,24]" or "['blue',,'green']
     "no-unreachable": 2,          //unreachable statements after a return, throw, continue, or break statement
     "use-isnan": 2,               //comparisons with the value NaN
-    "valid-jsdoc": 2,             // Ensure JSDoc comments are valid (off by default)
+    "valid-jsdoc": 0,             // Ensure JSDoc comments are valid (off by default)
     "valid-typeof": 2,            // Ensure that the results of typeof are compared against a valid string
 
 
@@ -64,7 +64,7 @@
 
     "accessor-pairs": 2,        // Enforces getter/setter pairs in objects
     "block-scoped-var": 0,      // treat var statements as if they were block scoped (off by default)
-    "complexity": [2, 5],      // specify the maximum cyclomatic complexity allowed in a program (off by default)
+    "complexity": 0,      // specify the maximum cyclomatic complexity allowed in a program (off by default)
     "consistent-return": 0,     // require return statements to either always or never specify values
     "curly": 2,                 // specify curly brace conventions for all control statements
     "default-case": 2,          // require default case in switch statements (off by default)
@@ -143,7 +143,7 @@
     "eol-last": 0,                  // enforce newline at the end of file, with no multiple empty lines
     "func-names": 0,                // require function expressions to have a name (off by default)
     "func-style": 0,                // enforces use of function declarations or expressions (off by default)
-    "indent": [2, 2],               // specify tab or space width for your code (fixable)
+    "indent": [0, 2],               // specify tab or space width for your code (fixable)
     "key-spacing": 0,               // enforces spacing between keys and values in object literal properties
     "max-nested-callbacks": [2, 5],      // specify the maximum depth callbacks can be nested (off by default)
     "new-cap": 2,                   // require a capital letter for constructors

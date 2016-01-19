@@ -15,8 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      //'node_modules/sinon/pkg/sinon.js',
-      //'freeCodeCampBonfires/**/*.js',
+      'node_modules/rx/',
+      'node_modules/sinon/pkg/sinon.js',
+      'freeCodeCampAlgorithmScripting/**/*.js',
       'functionalReactiveProgramming/**/*.js',
       'neatJavaScript/**/*.js',
       'objectOrientedJavaScript/**/*.js'

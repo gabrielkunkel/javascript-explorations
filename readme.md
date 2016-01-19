@@ -50,6 +50,11 @@ I look forward to incorporating functional reactive programming into my Angular,
 React, and Node.js applications, and carrying these ideas over into other
 languages, especially Java and Clojure which have their own FRP libraries.
 
+I stopped using tests once we got to the more reactive parts of the tutorial.
+Once I have a good understanding of the basics, I'm going to spend some time
+studying the use of rxjs' testScheduler and start writing some tests with
+the library.
+
 # TypeScript Fun
 
 While studying Java and anticipating an education in Angular 2, I became 

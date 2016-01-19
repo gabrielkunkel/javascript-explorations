@@ -1,6 +1,7 @@
 /**
  * Created by gabrielkunkel on 1/11/16.
  */
+    /* eslint-disable */
 
 class Car {
     private engine: string;
@@ -21,5 +22,9 @@ class Car {
 
     public stop(): void {
         alert("Car is stopped with engine: " + this.engine);
+    }
+
+    public driverIs(): string {
+        return "This is a string.";
     }
 }
