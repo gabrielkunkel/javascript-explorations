@@ -1,5 +1,29 @@
 'use strict';
 
+if (typeof Object.assign !== 'function') {
+  (function () {
+    Object.assign = function (target) {
+      'use strict';
+      if (target === undefined || target === null) {
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
+
+      var output = Object(target);
+      for (var index = 1; index < arguments.length; index += 1) {
+        var source = arguments[index];
+        if (source !== undefined && source !== null) {
+          for (var nextKey in source) {
+            if (source.hasOwnProperty(nextKey)) {
+              output[nextKey] = source[nextKey];
+            }
+          }
+        }
+      }
+      return output;
+    };
+  })();
+}
+
 /* Exercise 7: Implement Filter */
 
 Array.prototype.filter = function(predicateFunction) {
@@ -398,39 +422,19 @@ function exercise19() {
   ];
 
   return videos.reduce(function(acc, video) {
-
-      // Object.create() makes a fast copy of the acc by
-      // creating a new object and setting the acc to be the
-      // new object's prototype.
-
-      // Initially the new object is empty and has no members of its own,
-      // except a pointer to the object on which it was based. If an
-      // attempt to find a member on the new object fails, the new object
-      // silently attempts to find the member on its prototype. This
-      // process continues recursively, with each object checking its
-      // prototype until the member is found or we reach the first object
-      // we created.
-
-      // If we set a member value on the new object, it is stored
-      // directly on that object, leaving the prototype unchanged.
-      // Object.create() is perfect for functional programming because it
-      // makes creating a new object with a different member value almost
-      // as cheap as changing the member on the original object!
-
-    var copyOfAcc = Object.create(acc);
-
-    copyOfAcc[video.id] = video.title;
+    var obj = {};
+    obj[video.id] = video.title;
 
       // ----- INSERT CODE TO ADD THE VIDEO TITLE TO THE ----
       // ----- NEW MAP USING THE VIDEO ID AS THE KEY	 ----
-
-    return copyOfAcc;
+    return Object.assign(acc, obj);
   },
     // Use an empty map as the initial value instead of the first item in
     // the list.
     {});
 
-}
+
+} //end of exercise 19
 
 
 /* Exercise 20: Retrieve the id, title, and smallest box art url for every video. */

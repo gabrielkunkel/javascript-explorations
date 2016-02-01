@@ -64,17 +64,17 @@ describe("Returning an array of collection elements that include just those elem
 
   }); //end it
 
-}); //end describe
+  describe("the JavaScript functions that have to be used", function() {
 
-describe("the JavaScript functions that has to be used", function() {
+    it("provides an array of all the keys in an object", function() {
+      var sourceObject = [
+        { "a": 1, "b": 2 }
+      ].shift();
 
-  it("provides an array of all the keys in an object", function() {
-    var sourceObject = [
-      { "a": 1, "b": 2 }
-    ].shift();
+      expect(Object.keys(sourceObject)).toEqual(["a", "b"]);
+    }); //end it
 
-    expect(Object.keys(sourceObject)).toEqual(["a", "b"]);
-  }); //end it
 
+  }); //end describe
 
 }); //end describe
