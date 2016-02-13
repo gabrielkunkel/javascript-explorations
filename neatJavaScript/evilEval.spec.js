@@ -35,9 +35,20 @@ describe("Eval in experimentation", function () {
         "var c = b();" +
         "return c;" +
       "}";
-
     var a = eval("(" + completeFunction + ")");
+
     expect(a()).toEqual('Inner Function!');
   }); // end it
+
+
+  it("can process a boolean expression", function() {
+    var giveMeANumber = function() {
+      return 2;
+    };
+    var evaluatedBoolean = eval("giveMeANumber() === 2");
+
+    expect(evaluatedBoolean).toBe(true);
+  }); // end it
+
 
 }); // end describe
