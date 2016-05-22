@@ -3,7 +3,7 @@
  */
 
 function findLongestWord(str) {
-  var i, arraylength, elementToCompare, winner = '', winnerLength = winner.length;
+  var elementToCompare, winner = '';
   var array = str.split(' ');
 
   while(array.length > 0) {
@@ -14,7 +14,5 @@ function findLongestWord(str) {
     }
   }
 
-  winnerLength = winner.length;
-
-  return winnerLength;
+  return winner;
 }

@@ -20,7 +20,8 @@ module.exports = function(config) {
       'freeCodeCampAlgorithmScripting/**/*.js',
       'functionalReactiveProgramming/**/*.js',
       'neatJavaScript/**/*.js',
-      'objectOrientedJavaScript/**/*.js'
+      'objectOrientedJavaScript/**/*.js',
+      'codeSmithApp/**/*.js'
     ],
 
 
