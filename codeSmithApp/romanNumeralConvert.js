@@ -1,50 +1,15 @@
 /**
  * Created by gabrielkunkel on 7/29/15.
+ * Updated and Improved on 5/21/16.
  */
 
-
-/*
-There is a way to refactor this and make it shorter.
-Something like...
-
-
-
-if (mult % 10 === 0 || 1) {
-  if (whatGetsOutputted === 4) {
-    newArray.push(obj.roman);
-    newArray.push(nextObj.roman);
-  }
-
-
-
-
-var num = number
-
-function (obj, nextObj) {
-
-  var multiple = num / multipleAmount;
-  multiple = Math.floor(multiple);
-
-  if (multiple === 4) {
-    newArray.push(obj.roman);
-    newArray.push(nextObj.roman);
-  } else {
-   for (i = 0; i < multiple; i += 1) {
-   newArray.push(multiple['key']);
-   }
-   num -= multiple * multipleAmount;
-
-   }
-
-
-}
-
- */
 
 function romanNumeral(number) {
   var num = number,
     newArray = [],
     i;
+
+
 
   // remove 1000's from num
   var thousands = num / 1000;
@@ -69,6 +34,8 @@ function romanNumeral(number) {
     newArray.push('D');
     num -= 500;
   }
+
+
 
   // remove 100's from num
   var hundreds = num / 100;
@@ -99,6 +66,7 @@ function romanNumeral(number) {
     num -= 50;
   }
 
+
   // remove 10's from num
     var tens = num / 10;
     tens = Math.floor(tens);
@@ -112,29 +80,35 @@ function romanNumeral(number) {
   }
   num -= tens * 10;
 
-    // remove the 5's from num
-    if (num === 9) {
-      newArray.push('IX');
-    }
-    else {
-      var fives = num / 5;
-      fives = Math.floor(fives);
-      for (i = 0; i < fives; i += 1) {
-        newArray.push('V');
-      }
-      num -= fives * 5;
+  // remove 9's from num
+  var nines = num / 9;
+  nines = Math.floor(nines);
+  if (nines) {
+    newArray.push('IX');
+    num -= 9;
+  }
 
-      // remove the 1's from num
-      if (num === 4) {
-        newArray.push('IV');
-      }
-      else {
-        for (i = 0; i < num; i += 1) {
-          newArray.push('I');
-        }
-      }
+  // remove 5's from num
+  var fives = num / 5;
+  fives = Math.floor(fives);
+  if (fives) {
+    newArray.push('V');
+    num -= 5;
+  }
 
+  // remove 1's from num
+  var ones = num / 1;
+  ones = Math.floor(ones);
+  if (ones < 4) {
+    for (i = 0; i < ones; i += 1) {
+      newArray.push('I');
     }
+  }
+  else if (ones === 4) {
+    newArray.push('IV');
+  }
+  num -= ones * 1;
+
 
   return newArray.join('');
 

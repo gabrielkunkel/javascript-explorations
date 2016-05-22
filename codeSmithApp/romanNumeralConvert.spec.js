@@ -120,4 +120,8 @@ describe("Roman Numeral Function", function () {
     expect(romanNumeral(1000)).toEqual('M');
   }); // end it
   
+  it("should return 'MMIV' for 2004", function() {
+    expect(romanNumeral(2004)).toEqual('MMIV');
+  }); // end it
+  
 }); // end describe
